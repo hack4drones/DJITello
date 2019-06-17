@@ -6,9 +6,10 @@ import platform
 
 host = ''# OLD
 port = 9000# OLD
-locaddr = (host, port)# OLD
+locaddr = (host, port)
 python_version = str(platform.python_version())# OLD
 version_init_num = int(python_version.partition('.')[0])# OLD
+response = 0
 
 
 def print_help():
@@ -46,6 +47,8 @@ if version_init_num == 3:# OLD
 
     def kill():
         print ("Killing the drone")
+        sendcomand("attitude?")
+        time.sleep(1)
         sendcomand("up 500")
         print ("Up to the sky....")
         time.sleep(5)
@@ -54,22 +57,29 @@ if version_init_num == 3:# OLD
 
     def recv():# OLD
         count = 0# OLD
+        global response
         while True:# OLD
             try:# OLD
                 data, server = sock.recvfrom(1518)# OLD
-                print(data.decode(encoding="utf-8"))# OLD
+                #print("\nresponse:",data.decode(encoding="utf-8"))
+                response=data.decode(encoding="utf-8")
             except Exception:# OLD
                 print('\nExit . . .\n')# OLD
                 break# OLD
 
-
     # recvThread create
     recvThread = threading.Thread(target=recv)# OLD
-    recvThread.start()# OLD
+    recvThread.start()
     sendcomand('command')
     comand=''
-    while True:# OLD
+    while response is 0:
+        pass
+    print ("response:",response)
+    while True:
         try:# OLD
+            while response is 0:
+                pass
+            print("response:", response)
             msg = input("HackinTello# ");
             if msg.strip() != "":
                 d = msg.split(" ")
@@ -109,9 +119,10 @@ if version_init_num == 3:# OLD
 
             if comand != '':
                 sendcomand(comand)
+                time.sleep(3)
 
 
-        # Send data
+            # Send data
 
         except KeyboardInterrupt:# OLD
             print('\n . . .\n')# OLD
