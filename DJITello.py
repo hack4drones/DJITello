@@ -9,7 +9,7 @@ port = 9000# OLD
 locaddr = (host, port)
 python_version = str(platform.python_version())# OLD
 version_init_num = int(python_version.partition('.')[0])# OLD
-response = 0
+response = 1
 
 
 def print_help():
@@ -72,15 +72,15 @@ if version_init_num == 3:# OLD
     # recvThread create
     recvThread = threading.Thread(target=recv)# OLD
     recvThread.start()
-    #sendcomand('command')
+    sendcomand('command')
     comand=''
     #while response is 0:
     #    pass
     print ("response:",response)
     while True:
         try:# OLD
-         #   while response is 0:
-         #       pass
+            while response is 0:
+                pass
             print("response:", response)
             msg = input("HackinTello# ");
             if msg.strip() != "":
