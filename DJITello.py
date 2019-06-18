@@ -19,6 +19,8 @@ def print_help():
     print ("[t]ake off To take off")
     print ("[l]and to land")
     print ("[e]mergency to stop all motors immediately")
+    print ("[u]p 20-500 up 20 to 500 cm")
+    print ("[d]own 20-500 down 20 to 500 cm")
     print("--------------READ COMMANDS----------------")
     print ("[b]attery get battery porcentage")
     print ("[a]ltitude get altitude")
@@ -58,8 +60,8 @@ if version_init_num == 3:# OLD
     def recv():# OLD
         count = 0# OLD
         global response
-        while True:# OLD
-            try:# OLD
+        while True:
+            try:
                 data, server = sock.recvfrom(1518)# OLD
                 #print("\nresponse:",data.decode(encoding="utf-8"))
                 response=data.decode(encoding="utf-8")
@@ -70,15 +72,15 @@ if version_init_num == 3:# OLD
     # recvThread create
     recvThread = threading.Thread(target=recv)# OLD
     recvThread.start()
-    sendcomand('command')
+    #sendcomand('command')
     comand=''
-    while response is 0:
-        pass
+    #while response is 0:
+    #    pass
     print ("response:",response)
     while True:
         try:# OLD
-            while response is 0:
-                pass
+         #   while response is 0:
+         #       pass
             print("response:", response)
             msg = input("HackinTello# ");
             if msg.strip() != "":
@@ -88,6 +90,12 @@ if version_init_num == 3:# OLD
 
                 elif d[0] == "l":
                     comand = 'land'
+
+                elif d[0] == "u":
+                    comand = 'up '+d[1]
+
+                elif d[0] == "d":
+                    comand = 'down '+d[1]
 
                 elif d[0] == "e":
                     comand = 'emergency'
